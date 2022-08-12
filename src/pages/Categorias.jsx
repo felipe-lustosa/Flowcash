@@ -6,7 +6,7 @@ import LoadingEffect from '../components/LoadingEffect'
 import Navbar from '../layouts/Navbar'
 
 export default function CategoriesPage() {
-    const { authenticated, logout } = useContext(AuthContext)
+    // const { authenticated } = useContext(AuthContext)
     const [categorias, setCategorias] = useState([]);
     const [loading, setLoading] = useState(true)
 
@@ -17,10 +17,6 @@ export default function CategoriesPage() {
             setLoading(false)
         })()
     }, [])
-
-    const handleLogout = () => {
-        logout();
-    };
 
     if (loading) {
         return <LoadingEffect />
