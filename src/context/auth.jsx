@@ -20,42 +20,37 @@ export const AuthProvider = ({ children }) => {
         setLoading(false);
     }, []);
 
-    // console.log(!!user)
-
     const login = async (email, password) => {
         setError('')
-        const response = await createSession(email, password).then().catch(() => { setError('Erro ao realizar o login. Tente novamente.') })
-        console.log(response)
-        console.log('login auth', response.data);
+        await createSession(email, password).then((response) => {
+            // const loggedUser = response.data.user;
+            console.log(response)
+            const token = response.data.token.substring(response.data.token.indexOf('|') + 1);
 
-        // const loggedUser = response.data.user;
-        const token = response.data.token.substring(response.data.token.indexOf('|') + 1);
+            const loggedUser = {
+                id: '123',
+                email,
+            }
 
-        const loggedUser = {
-            id: '123',
-            email,
-        }
+            localStorage.setItem('user', JSON.stringify(loggedUser))
+            localStorage.setItem('token', token)
 
-        console.log(JSON.stringify(loggedUser))
-        localStorage.setItem('user', JSON.stringify(loggedUser))
-        localStorage.setItem('token', token)
+            api.defaults.headers.Authorization = `Bearer ${token}`;
 
-        api.defaults.headers.Authorization = `Bearer ${token}`;
+            setUser(loggedUser);
+            navigate("/categorias")
+        }).catch(() => { setError('Erro ao realizar o login. Tente novamente.') })
 
-        setUser(loggedUser);
-        navigate("/categorias")
+
 
     }
-    console.log(error)
 
     const register = async (name, email, password) => {
         setError('')
-        const response = await createUser(name, email, password).then().catch(() => { setError('Erro ao realizar o registro. Tente novamente.') })
-
-        console.log('login auth', response);
-
-        setUser(null);
-        navigate("/login")
+        await createUser(name, email, password).then(() => {
+            setUser(null);
+            navigate("/login")
+        }).catch(() => { setError('Erro ao realizar o registro. Tente novamente.') })
     }
 
     const logout = () => {
