@@ -22,6 +22,22 @@ export const getUsers = async () => {
     return api.get('/users')
 }
 
+export const getUserTransactions = async (id) => {
+    return api.get('/users/' + id + '/transactions')
+}
+
+export const postUserTransactions = async (id, data) => {
+    return api.post('/users/' + id + '/transactions', {
+        category_id: data.category_id,
+        user_id: data.user_id,
+        description: data.description,
+        date: data.date,
+        status: data.status,
+        type: data.type,
+        value: data.value,
+    })
+}
+
 //categories
 export const getCategories = async () => {
     return api.get('/categories')

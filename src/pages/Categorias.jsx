@@ -7,8 +7,8 @@ import AddIcon from "@mui/icons-material/Add";
 import { Fab, Paper, Tooltip } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import ChipsCategorias from '../components/ChipsCategorias'
-import ModalAddEdit from '../components/ModalAddEdit'
-import ModalDelete from '../components/ModalDelete'
+import ModalAddEdit from '../components/ModalAddEditCategorias'
+import ModalDelete from '../components/ModalDeleteCategorias'
 
 export default function CategoriesPage() {
     const [categorias, setCategorias] = useState([]);
@@ -21,11 +21,7 @@ export default function CategoriesPage() {
     useEffect(() => {
         (async () => {
             const response = await getCategories();
-            let aux = []
-            response.data.data.map((categorias) => {
-                aux.push({ id: categorias.id, name: categorias.name })
-            })
-            setCategorias(aux)
+            setCategorias(response.data.data)
             setLoading(false)
         })()
     }, [openModal])

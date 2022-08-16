@@ -12,9 +12,11 @@ export const AuthProvider = ({ children }) => {
 
     useEffect(() => {
         const recoveredUser = localStorage.getItem('user');
+        const token = localStorage.getItem('token');
 
-        if (recoveredUser) {
+        if (recoveredUser && token) {
             setUser(JSON.parse(recoveredUser));
+            api.defaults.headers.Authorization = `Bearer ${token}`;
         }
 
         setLoading(false);
@@ -28,7 +30,7 @@ export const AuthProvider = ({ children }) => {
             const token = response.data.token.substring(response.data.token.indexOf('|') + 1);
 
             const loggedUser = {
-                id: '123',
+                id: '13',
                 email,
             }
 

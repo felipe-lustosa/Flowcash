@@ -3,8 +3,8 @@ import Modal from "@mui/material/Modal";
 import { Stack } from "@mui/material";
 import { useState } from 'react'
 import { ExclamationIcon } from '@heroicons/react/outline'
-import { deleteCategories } from '../services/api'
-import LoadingEffect from '../components/LoadingEffect'
+import { deleteTransactions } from '../services/api'
+import LoadingEffect from './LoadingEffect'
 
 
 const style = {
@@ -28,7 +28,7 @@ export default function ModalDelete(props) {
     const handleDelete = async (id) => {
         setError('')
         setLoading(true)
-        await deleteCategories(id).then(() => {
+        await deleteTransactions(id).then(() => {
             props.handleClose();
         }).catch(() => { setError('Falha ao deletar, tente novamente.') })
         setLoading(false)
@@ -51,11 +51,11 @@ export default function ModalDelete(props) {
                         </div>
                         <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
                             <h3 className="text-lg leading-6 font-medium text-gray-900">
-                                Remover {props.data['name']}
+                                Remover {props.data['description']}
                             </h3>
                             <div className="mt-2">
                                 <p className="text-sm text-gray-500">
-                                    Você tem certeza que deseja remover {props.data['name']}? Esses dados serão permanentemente removidos.
+                                    Você tem certeza que deseja remover {props.data['description']}? Esses dados serão permanentemente removidos.
                                 </p>
                             </div>
                             <p className='text-red-500 text-sm pt-2'>{error}</p>

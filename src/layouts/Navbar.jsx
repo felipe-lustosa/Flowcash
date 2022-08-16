@@ -40,10 +40,10 @@ export default function Navbar({ children }) {
                             <div className="hidden sm:block sm:ml-6">
                                 <div className="flex space-x-4">
                                     <NavLink to='/categorias'>
-                                        <a className={location.pathname == "/categorias" ? selectedPageButtonStyle : pageButtonStyle} aria-current="page">Categorias</a>
+                                        <p className={location.pathname == "/categorias" ? selectedPageButtonStyle : pageButtonStyle}>Categorias</p>
                                     </NavLink>
                                     <NavLink to='/transacoes'>
-                                        <a className={location.pathname == "/transacoes" ? selectedPageButtonStyle : pageButtonStyle}>Transações</a>
+                                        <p className={location.pathname == "/transacoes" ? selectedPageButtonStyle : pageButtonStyle}>Transações</p>
                                     </NavLink>
                                 </div>
                             </div>
@@ -58,10 +58,10 @@ export default function Navbar({ children }) {
 
                     {openMobile && <div className="px-2 pt-2 pb-3 space-y-1">
                         <NavLink to='/categorias'>
-                            <a href="/categorias" className="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium" aria-current="page">Categorias</a>
+                            <p className="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium">Categorias</p>
                         </NavLink>
                         <NavLink to='/transacoes'>
-                            <a href="/transacoes" className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Transações</a>
+                            <p className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Transações</p>
                         </NavLink>
                     </div>}
                 </div>

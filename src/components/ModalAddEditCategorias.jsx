@@ -6,7 +6,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import { Box } from "@mui/system";
 import { useState } from 'react';
 import { putCategories, postCategories } from '../services/api'
-import LoadingEffect from '../components/LoadingEffect'
+import LoadingEffect from './LoadingEffect'
 
 const style = {
     position: "absolute",
@@ -36,7 +36,7 @@ export default function ModalAddEdit(props) {
         setLoading(true)
         await postCategories(input).then(() => {
             props.handleClose();
-        }).catch(() => { setError('Falha ao deletar, tente novamente.') })
+        }).catch(() => { setError('Falha ao adicionar, tente novamente.') })
         setLoading(false)
     }
 
@@ -48,7 +48,7 @@ export default function ModalAddEdit(props) {
         console.log(input)
         await putCategories(props.data['id'], input).then(() => {
             props.handleClose();
-        }).catch(() => { setError('Falha ao deletar, tente novamente.') })
+        }).catch(() => { setError('Falha ao editar, tente novamente.') })
         setLoading(false)
     }
 
@@ -64,7 +64,7 @@ export default function ModalAddEdit(props) {
                 <form onSubmit={handleSubmit((input) => (props.tipo == 'adicionar' ? handlePost(input) : props.tipo == 'editar' ? handleUpdate(input) : null))}>
                     <Stack direction="row" spacing={1} sx={{ justifyContent: "space-between", borderRadius: 1, borderBottom: "1px solid #D2D4C8", opacity: 2, fontWeight: "bold", pb: 1 }} >
                         <Typography id="modal-modal-title" variant="h6" component="h2" sx={{ alignSelf: "center", ml: 2 }} >
-                            {props.tipo == 'editar' ? "Editar " + props.data['name'] : props.tipo == 'adicionar' ? "Adicionar Setor" : null}
+                            {props.tipo == 'editar' ? "Editar " + props.data['name'] : props.tipo == 'adicionar' ? "Adicionar Categoria" : null}
                         </Typography>
                         <IconButton size="small" onClick={props.handleClose} sx={{ color: "gray", "&:hover": { backgroundColor: "#e1dddd97" }, }}>
                             <CloseIcon />
