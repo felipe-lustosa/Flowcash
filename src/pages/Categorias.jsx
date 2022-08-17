@@ -26,8 +26,6 @@ export default function CategoriesPage() {
         })()
     }, [openModal])
 
-    console.log(categorias)
-
     function handleOpenModal(tipo, id) {
         if (id)
             setIdSelected(id)

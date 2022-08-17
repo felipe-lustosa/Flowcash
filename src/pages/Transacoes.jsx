@@ -63,7 +63,6 @@ const TransactionsPage = () => {
             if (compareDates(reConvertDate(transacao.date), selectedDate.date)) {
                 transacao.type == 'receita' ? receita += transacao.value : despesa += transacao.value
             }
-            console.log(compareDates(reConvertDate(transacao.date), selectedDate.date))
             if (beforeDate(reConvertDate(transacao.date), selectedDate.date)) {
                 transacao.type == 'receita' ? saldoInicial += transacao.value : saldoInicial -= transacao.value
             }
@@ -92,8 +91,6 @@ const TransactionsPage = () => {
         setTipo('')
         setOpenModal(false)
     }
-    // console.log(compareDates(new Date(transacoes[0].date.split('T')[0]), selectedDate.date))
-    // console.log(compareDates(new Date(transacoes[0].date.split('T')[0]), selectedDate.date))
 
     return (
         <Navbar>

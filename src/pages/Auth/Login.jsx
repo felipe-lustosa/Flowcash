@@ -17,7 +17,6 @@ export default function LoginPage() {
     const handleLogin = (e) => {
         // Prevenir o browser de fazer o evento padrao de recarregar a página
         e.preventDefault();
-        console.log('submit', { email }, { password })
         login(email, password)
     }
 

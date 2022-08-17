@@ -19,7 +19,6 @@ export default function RegisterPage() {
     const handleRegister = (e) => {
         // Prevenir o browser de fazer o evento padrao de recarregar a página
         e.preventDefault();
-        console.log('submit', { email }, { password })
         register(name, email, password)
     }
 

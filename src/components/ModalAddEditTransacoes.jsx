@@ -41,8 +41,6 @@ export default function ModalAddEdit(props) {
     const [selectedInput, setSelectedInput] = React.useState(props.tipo == 'editar' ? props.data['category_id'] : '');
     const [selectedDate, setSelectedDate] = React.useState(props.tipo == 'editar' ? reConvertDate(props.data['date']) : new Date());
 
-    // console.log(new Date(props.data['date'].replaceAll('/', '-')))
-
     const handleChangeRadioButton = (event) => {
         setSelectedRadio(event.target.value);
     };

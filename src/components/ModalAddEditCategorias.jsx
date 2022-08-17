@@ -45,7 +45,6 @@ export default function ModalAddEdit(props) {
         setLoading(true)
         if (input.name == '')
             input.name = props.data['name']
-        console.log(input)
         await putCategories(props.data['id'], input).then(() => {
             props.handleClose();
         }).catch(() => { setError('Falha ao editar, tente novamente.') })
