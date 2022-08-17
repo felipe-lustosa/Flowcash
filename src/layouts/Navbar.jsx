@@ -2,8 +2,10 @@ import React, { useState, useContext } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import { AuthContext } from "../context/auth";
 
-const selectedPageButtonStyle = "bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium"
-const pageButtonStyle = "text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+const selectedPageButtonStyle = "bg-gray-100 text-gray-800 px-3 py-2 rounded-md text-sm font-medium"
+const pageButtonStyle = "text-gray-100 hover:bg-gray-100 hover:text-gray-800 px-3 py-2 rounded-md text-sm font-medium"
+const selectedMobileButtonStyle = "bg-[#B80099] text-white block px-3 py-2 rounded-md text-base font-medium"
+const mobileButtonStyle = "text-gray-800 hover:bg-[#740060] hover:text-white block px-3 py-2 rounded-md text-base font-medium"
 
 export default function Navbar({ children }) {
 
@@ -18,11 +20,11 @@ export default function Navbar({ children }) {
 
     return (
         <div>
-            <nav className="bg-gray-800">
-                <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
+            <nav className="">
+                <div className="w-11/12 rounded-lg shadow-lg mx-auto px-2 sm:px-6 lg:px-8 bg-[#B80099]">
                     <div className="relative flex items-center justify-between h-20">
                         <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
-                            <button type="button" className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white" aria-controls="mobile-menu" aria-expanded="false" onClick={() => { setOpenMobile(!openMobile) }}>
+                            <button type="button" className="inline-flex items-center justify-center p-2 rounded-md text-gray-100 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white" aria-controls="mobile-menu" aria-expanded="false" onClick={() => { setOpenMobile(!openMobile) }}>
                                 <span className="sr-only">Open main menu</span>
                                 <svg className="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" aria-hidden="true">
                                     <path d="M4 6h16M4 12h16M4 18h16" />
@@ -34,8 +36,8 @@ export default function Navbar({ children }) {
                         </div>
                         <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
                             <div className="flex-shrink-0 flex items-center">
-                                <img className="block lg:hidden h-8 w-auto" src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg" alt="Workflow" />
-                                <img className="hidden lg:block h-8 w-auto" src="https://tailwindui.com/img/logos/workflow-logo-indigo-500-mark-white-text.svg" alt="Workflow" />
+                                <img className="block lg:hidden h-8 w-auto" src="/images/flowcash_logo.png" alt="Workflow" />
+                                <img className="hidden lg:block h-8 w-auto" src="/images/flowcash_logo.png" alt="Workflow" />
                             </div>
                             <div className="hidden sm:block sm:ml-6">
                                 <div className="flex space-x-4">
@@ -58,10 +60,10 @@ export default function Navbar({ children }) {
 
                     {openMobile && <div className="px-2 pt-2 pb-3 space-y-1">
                         <NavLink to='/categorias'>
-                            <p className="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium">Categorias</p>
+                            <p className={location.pathname == "/categorias" ? selectedMobileButtonStyle : mobileButtonStyle}>Categorias</p>
                         </NavLink>
                         <NavLink to='/transacoes'>
-                            <p className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Transações</p>
+                            <p className={location.pathname == "/transacoes" ? selectedMobileButtonStyle : mobileButtonStyle}>Transações</p>
                         </NavLink>
                     </div>}
                 </div>

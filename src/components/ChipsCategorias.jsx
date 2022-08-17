@@ -10,23 +10,6 @@ const ListItem = styled('li')(({ theme }) => ({
 
 export default function ChipsCategorias(props) {
 
-    const [chipData, setChipData] = useState([
-        { key: 0, label: 'Angular' },
-        { key: 1, label: 'jQuery' },
-        { key: 2, label: 'Polymer' },
-        { key: 3, label: 'React' },
-    ]);
-
-    // setChipData((chips) => chips.filter((chip) => chip.key !== chipToDelete.key));
-
-    const handleClick = () => {
-        console.info('You clicked the Chip.');
-    };
-
-    const handleDelete = () => {
-        console.info('You clicked the delete icon.');
-    };
-
     return (
         <div className='flex justify-center flex-wrap px-1 m-1 gap-2 list-none' component="ul">
             {props.chipData.map((data) => {

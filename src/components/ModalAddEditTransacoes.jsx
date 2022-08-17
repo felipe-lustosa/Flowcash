@@ -5,7 +5,7 @@ import { Button, IconButton, Stack, Typography } from "@mui/material";
 import CloseIcon from '@mui/icons-material/Close';
 import { Box } from "@mui/system";
 import { useState } from 'react';
-import { putCategories, postUserTransactions } from '../services/api'
+import { putTransactions, postUserTransactions } from '../services/api'
 import LoadingEffect from './LoadingEffect'
 import DatePicker from '../components/DatePicker';
 import Radio from '@mui/material/Radio';
@@ -13,6 +13,7 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import BasicSelect from "./BasicSelect";
+import { reConvertDate } from "../utils/ConvertDate";
 
 const style = {
     position: "absolute",
@@ -36,9 +37,11 @@ export default function ModalAddEdit(props) {
     const { register, handleSubmit } = useForm();
     const [error, setError] = useState('')
     const [loading, setLoading] = useState(false)
-    const [selectedRadio, setSelectedRadio] = React.useState('receita');
-    const [selectedInput, setSelectedInput] = React.useState('');
-    const [selectedDate, setSelectedDate] = React.useState(new Date());
+    const [selectedRadio, setSelectedRadio] = React.useState(props.tipo == 'editar' ? props.data['type'] : 'receita');
+    const [selectedInput, setSelectedInput] = React.useState(props.tipo == 'editar' ? props.data['category_id'] : '');
+    const [selectedDate, setSelectedDate] = React.useState(props.tipo == 'editar' ? reConvertDate(props.data['date']) : new Date());
+
+    // console.log(new Date(props.data['date'].replaceAll('/', '-')))
 
     const handleChangeRadioButton = (event) => {
         setSelectedRadio(event.target.value);
@@ -63,15 +66,20 @@ export default function ModalAddEdit(props) {
         setLoading(false)
     }
 
-    console.log('teste')
-
     const handleUpdate = async (input) => {
-        setError('')
-        setLoading(true)
-        if (input.name == '')
-            input.name = props.data['name']
-        console.log(input)
-        await putCategories(props.data['id'], input).then(() => {
+        let id = props.data.id
+        const postData = {
+            category_id: selectedInput,
+            user_id: JSON.parse(localStorage.getItem('user')).id,
+            description: input.description == '' ? props.data.description : input.description,
+            date: selectedDate.toLocaleString().substring(0, selectedDate.toLocaleString().indexOf(' ')).replaceAll('/', '-'),
+            status: true,
+            type: selectedRadio,
+            value: input.value == '' ? props.data.value : input.value,
+        }
+        setError('');
+        setLoading(true);
+        await putTransactions(id, postData).then(() => {
             props.handleClose();
         }).catch(() => { setError('Falha ao editar, tente novamente.') })
         setLoading(false)
@@ -89,7 +97,7 @@ export default function ModalAddEdit(props) {
                 <form onSubmit={handleSubmit((input) => (props.tipo == 'adicionar' ? handlePost(input) : props.tipo == 'editar' ? handleUpdate(input) : null))}>
                     <Stack direction="row" spacing={1} sx={{ justifyContent: "space-between", borderRadius: 1, borderBottom: "1px solid #D2D4C8", opacity: 2, fontWeight: "bold", pb: 1 }} >
                         <Typography id="modal-modal-title" variant="h6" component="h2" sx={{ alignSelf: "center", ml: 2 }} >
-                            {props.tipo == 'editar' ? "Editar " + props.data['name'] : props.tipo == 'adicionar' ? "Adicionar Transação" : null}
+                            {props.tipo == 'editar' ? "Editar " + props.data['description'] : props.tipo == 'adicionar' ? "Adicionar Transação" : null}
                         </Typography>
                         <IconButton size="small" onClick={props.handleClose} sx={{ color: "gray", "&:hover": { backgroundColor: "#e1dddd97" }, }}>
                             <CloseIcon />
@@ -97,13 +105,13 @@ export default function ModalAddEdit(props) {
                     </Stack>
                     <Stack spacing={2} className="w-full p-2">
                         <div className="flex gap-4">
-                            <div className="basis-2/3"><label className={styleLabelInput}>Descrição<input {...register("description", (props.tipo == 'adicionar' && { required: true }))} id='description' placeholder={props.data ? props.data['description'] : null} className={styleInput2} /></label>
+                            <div><label className={styleLabelInput}>Descrição<input {...register("description", (props.tipo == 'adicionar' && { required: true }))} id='description' placeholder={props.data ? props.data['description'] : null} className={styleInput2} /></label>
                                 {/* {errors?.descricao?.type && <InputError type={errors.descricao.type} field="nome" />} */}
                             </div>
-                            <div className="basis-1/3"><label className={styleLabelInput}>Valor<input {...register("value", (props.tipo == 'adicionar' && { required: true }))} id='value' placeholder={props.data ? props.data['value'] : null} className={styleInput2} /></label></div>
+                            <div><label className={styleLabelInput}>Valor<input {...register("value", (props.tipo == 'adicionar' && { required: true }))} id='value' placeholder={props.data ? props.data['value'] : null} className={styleInput2} /></label></div>
                             {/* <div><label className={styleLabelInput}>Categoria<input {...register("value", (props.tipo == 'adicionar' && { required: true }))} id='descricao' label='nome' placeholder={props.data ? props.data['name'] : null} className={styleInput2} /></label></div> */}
                         </div>
-                        <div className="flex gap-2">
+                        <div className="flex gap-2 pt-2">
                             <BasicSelect options={props.categorias} label='Categorias' setSelected={setSelectedInput} selected={selectedInput} />
                             <div className='flex justify-start w-full'><DatePicker selected={selectedDate} setSelected={setSelectedDate} /></div>
                         </div>
@@ -114,7 +122,7 @@ export default function ModalAddEdit(props) {
                                 <FormControlLabel value="despesa" checked={selectedRadio === 'despesa'} control={<Radio />} label="Despesa" />
                             </RadioGroup>
                         </FormControl>
-                        <p className='text-red-500 text-sm pt-2'>{error}</p>
+                        <p className='text-red-500 text-sm'>{error}</p>
                         <Box>
                             {loading ? <div className="pb-4"><LoadingEffect /></div> : <Button variant="contained" style={{ textTransform: "none", fontWeight: 700 }} type="submit" className="bg-sky-600 hover:bg-sky-700 shadow-lg">{props.tipo == 'editar' ? "Editar" : props.tipo == 'adicionar' ? "Adicionar" : null}</Button>}
                         </Box>

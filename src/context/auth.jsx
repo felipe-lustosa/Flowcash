@@ -30,7 +30,7 @@ export const AuthProvider = ({ children }) => {
             const token = response.data.token.substring(response.data.token.indexOf('|') + 1);
 
             const loggedUser = {
-                id: '13',
+                id: '15',
                 email,
             }
 

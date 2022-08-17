@@ -2,7 +2,7 @@ import React from "react";
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Fab, Tooltip } from "@mui/material";
-import { ConvertDate } from "../utils/ConvertDate";
+import { convertDate } from "../utils/ConvertDate";
 
 export default function ContainerTransacoes(props) {
 
@@ -20,14 +20,14 @@ export default function ContainerTransacoes(props) {
             {/* <div className="bg-gray-50 px-4 py-3 rounded shadow"> */}
             <div className="grid grid-cols-3 sm:grid-cols-2 xs:grid-cols-2 md:grid-cols-3 gap-4 justify-center content-center">
                 {ContainerDados("Descrição", props.transacoes.description)}
-                {ContainerDados("Categoria", props.transacoes.description)}
+                {ContainerDados("Categoria", props.categoria.name)}
                 {ContainerDados("Tipo", props.transacoes.type)}
                 {ContainerDados("Valor", "R$" + props.transacoes.value)}
-                {ContainerDados("Data", ConvertDate(props.transacoes.date))}
-            </div>
-            <div className="flex content-center justify-center gap-4 pt-4 sm:px-16 md:px-0">
-                <Tooltip title="Editar"><Fab color="primary" aria-label="editar" size="small" onClick={() => props.handleModal('editar', props.transacoes.id)}><EditIcon /></Fab></Tooltip>
-                <Tooltip title="Excluir"><Fab aria-label="excluir" size="small" color="error" onClick={() => props.handleModal('excluir', props.transacoes.id)}><DeleteIcon /></Fab></Tooltip>
+                {ContainerDados("Data", convertDate(props.transacoes.date))}
+                <div className="flex content-center justify-center gap-4 pt-4 md:px-0">
+                    <Tooltip title="Editar"><Fab color="primary" aria-label="editar" size="small" onClick={() => props.handleModal('editar', props.transacoes.id)}><EditIcon /></Fab></Tooltip>
+                    <Tooltip title="Excluir"><Fab aria-label="excluir" size="small" color="error" onClick={() => props.handleModal('excluir', props.transacoes.id)}><DeleteIcon /></Fab></Tooltip>
+                </div>
             </div>
             {/* </div> */}
         </dl>

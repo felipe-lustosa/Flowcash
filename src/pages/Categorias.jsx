@@ -45,7 +45,7 @@ export default function CategoriesPage() {
         <Navbar>
             <div className='flex justify-center pt-4'>
                 <div className="shadow-lg bg-white w-11/12 rounded-2xl font-bold" sx={{ my: 2, pb: 2, maxWidth: "90%", display: { xs: "inline", sm: "inline", md: "flex" }, }} >
-                    <Grid container sx={{ bgcolor: "#2C86EC", borderRadius: "16px", px: 2, py: 1, maxWidth: "100%", justifySelf: "center", }} >
+                    <Grid container sx={{ bgcolor: "#8a0373", borderRadius: "16px", px: 2, py: 1, maxWidth: "100%", justifySelf: "center", }} >
                         <Grid item xs={12} sm={12} md={12} sx={{ px: 1, py: 1 }} >
                             <h2 className='weight-bold text-white' >
                                 Categorias

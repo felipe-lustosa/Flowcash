@@ -34,8 +34,6 @@ export default function ModalDelete(props) {
         setLoading(false)
     }
 
-    console.log(props.data)
-
     return (
         <Modal
             open={props.open}
