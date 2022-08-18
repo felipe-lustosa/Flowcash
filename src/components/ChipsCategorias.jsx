@@ -16,6 +16,7 @@ export default function ChipsCategorias(props) {
                 return (
                     <ListItem key={data.id}>
                         <Chip
+                            style={{ backgroundColor: "#B80099" }}
                             color='primary'
                             label={data.name}
                             onClick={() => { props.handleOpenModal('editar', data.id) }}

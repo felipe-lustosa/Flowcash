@@ -27,7 +27,7 @@ const TransactionsPage = () => {
     const [loading, setLoading] = useState(true)
     const [selectedDate, setSelectedDate] = useState({
         date: new Date(),
-        key: 5
+        key: 4
     })
     const [transactionValue, setTransactionValue] = useState({
         receita: 0,
@@ -124,7 +124,7 @@ const TransactionsPage = () => {
                         <div className='grid grid-cols-2 gap-8 content-center m-4 py-4 px-1 w-11/12'>
                             {loading ? <div className="pb-4 col-span-2"><LoadingEffect /></div> : categorias ?
                                 transacoes.map((transacao) => {
-                                    if (selectedDate.key == 5 || compareDates(reConvertDate(transacao.date), selectedDate.date)) {
+                                    if (selectedDate.key == 4 || compareDates(reConvertDate(transacao.date), selectedDate.date)) {
                                         return <Paper className='flex flex-col content-center py-2 gap-4 w-full' elevation={2}> < ContainerTransacoes transacoes={transacao} categoria={categorias.find(item => item.id == transacao.category_id)} handleModal={handleOpenModal} /> </Paper>
                                     }
                                 }) : null}
