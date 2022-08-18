@@ -57,7 +57,7 @@ export default function CategoriesPage() {
                             </div>}
                         <div className='py-2'>
                             <Tooltip title="Adicionar" className='justify-self-center'>
-                                <Fab className='mb-8' color="primary" aria-label="add" size="small" onClick={() => handleOpenModal("adicionar")} >
+                                <Fab className='mb-8' aria-label="add" size="small" onClick={() => handleOpenModal("adicionar")} >
                                     <AddIcon />
                                 </Fab>
                             </Tooltip>

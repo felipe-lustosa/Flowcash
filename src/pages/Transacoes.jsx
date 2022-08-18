@@ -113,7 +113,7 @@ const TransactionsPage = () => {
                                 <p className={transactionValue.saldoInicial == 0 ? neutralTextStyle : transactionValue.saldoInicial < 0 ? negativeTextStyle : positiveTextStyle}>Saldo inicial: {transactionValue.saldoInicial < 0 ? " - R$ " : "R$"} {Math.abs(transactionValue.saldoInicial)}</p>
                                 <p className={transactionValue.saldoFinal == 0 ? neutralTextStyle : transactionValue.saldoFinal < 0 ? negativeTextStyle : positiveTextStyle}>Saldo final: {transactionValue.saldoFinal < 0 ? " - R$ " : "R$"} {Math.abs(transactionValue.saldoFinal)}</p>
                                 <Tooltip title="Adicionar" >
-                                    <Fab className='mb-8' color="primary" aria-label="add" size="small" onClick={() => handleOpenModal("adicionar")} >
+                                    <Fab className='mb-8' aria-label="add" size="small" onClick={() => handleOpenModal("adicionar")} >
                                         <AddIcon />
                                     </Fab>
                                 </Tooltip>
